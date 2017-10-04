@@ -1,25 +1,17 @@
 {
   "name": "build-a-library-manager",
-  "version": "1.0.0",
-  "description": "the eleventh project of the full stack javascript techdegree",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tdimnet/Build-a-Library-Manager.git"
-  },
-  "keywords": [
-    "express",
-    "node",
-    "jade",
-    "sequelize"
-  ],
-  "author": "Thomas Dimnet",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/tdimnet/Build-a-Library-Manager/issues"
-  },
-  "homepage": "https://github.com/tdimnet/Build-a-Library-Manager#readme"
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0",
+    "serve-favicon": "~2.4.5"
+  }
 }
