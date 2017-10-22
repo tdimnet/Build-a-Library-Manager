@@ -9,9 +9,14 @@ var Loan = require('../models').Loan;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('books', {
-    title: 'Books',
-  });
+  Book.findAndCountAll().then(function(results) {
+    console.log(results.rows);
+    res.render('books', {
+      title: 'Books',
+      books: results.rows
+    });
+  })
+
 });
 
 module.exports = router;
