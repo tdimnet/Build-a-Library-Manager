@@ -3,3 +3,24 @@ extends layout
 block content
   h1= title
   
+  table
+    thead
+      tr
+        th Book title
+        th Patron
+        th Loaned on
+        th Return by
+        th Returned on
+        
+    tbody
+      if loans.length > 0
+        each loan in loans
+          tr
+            td loan.Book.title
+            td loan.Patron.name
+            td= loan.loaned_on
+            td= loan.return_by
+            td= loan.returned_on
+      else
+        tr
+          td No records found.
