@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 block content
   h1= title
@@ -16,8 +16,8 @@ block content
       if loans.length > 0
         each loan in loans
           tr
-            td loan.Book.title
-            td loan.Patron.name
+            td= loan.book_id
+            td= loan.patron_id
             td= loan.loaned_on
             td= loan.return_by
             td= loan.returned_on

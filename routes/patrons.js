@@ -8,7 +8,7 @@ var Loan = require('../models').Loan;
 /* GET PATRONS home page. */
 router.get('/', function(req, res, next) {
   Patron.findAndCountAll().then(function(results) {
-    res.render('patrons', {
+    res.render('patron/patrons', {
       title: 'Patron',
       patrons: results.rows
     });

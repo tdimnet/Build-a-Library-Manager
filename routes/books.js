@@ -10,7 +10,7 @@ var Loan = require('../models').Loan;
 /* GET BOOKS home page. */
 router.get('/', function(req, res, next) {
   Book.findAndCountAll().then(function(results) {
-    res.render('books', {
+    res.render( 'book/books', {
       title: 'Books',
       books: results.rows
     });

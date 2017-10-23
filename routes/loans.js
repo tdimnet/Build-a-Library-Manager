@@ -8,7 +8,8 @@ var Loan = require('../models').Loan;
 /* GET LOANS home page. */
 router.get('/', function(req, res, next) {
   Loan.findAndCountAll().then(function(results) {
-    res.render('loans', {
+    console.log(results);
+    res.render('loan/loans', {
       title: 'Loan',
       loans: results.rows
     });
