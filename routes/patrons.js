@@ -21,9 +21,15 @@ router.get('/details/:id', function(req, res, next) {
   Patron.findById(req.params.id).then(function(results) {
     console.log(results);
     res.render('patron/patron-details', {
-      
+
     });
   })
+});
+
+
+// NEW PATRON VIEW
+router.get('/new', function(req, res, next) {
+  res.render('patron/new-patron');
 });
 
 module.exports = router;
