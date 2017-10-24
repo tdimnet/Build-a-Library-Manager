@@ -17,4 +17,10 @@ router.get('/', function(req, res, next) {
   })
 });
 
+
+// NEW BOOK VIEW
+router.get('/new', function(req, res, next) {
+  res.render('book/new-book');
+});
+
 module.exports = router;
