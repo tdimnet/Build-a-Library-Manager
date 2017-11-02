@@ -15,7 +15,8 @@ block content
       if books.length > 0
         each book in books
           tr
-            td= book.title
+            td
+              a(href="/books/details/" + book.id)= book.title
             td= book.author
             td= book.genre
             td= book.first_published
