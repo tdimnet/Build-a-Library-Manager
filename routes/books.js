@@ -70,6 +70,30 @@ router.post('/details/:id', function(req, res, next) {
       // For now errors are logged in here too
       console.log(err);
     })
-})
+});
+
+
+// ROUTE FOR OVERDUE LIST
+router.get('/overdue', function(req, res, next) {
+
+  var getBookByLoan = {
+    include: [Book, Patron],
+    return_by: { $lt: new Date() },
+    returned_on: null
+  }
+
+  Loan
+    .findAndCountAll(getBookByLoan)
+    .then(function(results) {
+      var books = results.rows.map(function(loan) {
+        return loan.Book;
+      });
+
+      res.render('book/books', {
+        title: 'Overdue Books',
+        books: books
+      });
+    })
+});
 
 module.exports = router;
