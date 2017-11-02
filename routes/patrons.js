@@ -5,6 +5,21 @@ var Book = require('../models').Book;
 var Patron = require('../models').Patron;
 var Loan = require('../models').Loan;
 
+
+// ROUTE FOR CREATING NEW PATRON
+
+  // Create new patron get method
+  router.get('/new', function(req, res, next) {
+    var patron = Patron.build();
+    res.render('patron/new-patron', {
+      title: 'Create new patron',
+      patron: patron
+    });
+  });
+
+  // Create new patron post method
+
+
 // GET ALL PATRONS home page.
 router.get('/', function(req, res, next) {
   Patron.findAndCountAll().then(function(results) {
@@ -24,12 +39,6 @@ router.get('/details/:id', function(req, res, next) {
 
     });
   })
-});
-
-
-// NEW PATRON VIEW
-router.get('/new', function(req, res, next) {
-  res.render('patron/new-patron');
 });
 
 module.exports = router;
