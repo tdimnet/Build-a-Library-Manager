@@ -48,6 +48,16 @@ router.get('/new', function(req, res, next) {
 });
 
   // POST
+  router.post('/new', function(req, res, next) {
+    Loan
+      .create(req.body)
+      .then(function(loan) {
+        res.redirect('/loans')
+      })
+      .catch(function(err) {
+        console.log(err);
+      })
+  });
 
 
 module.exports = router;
