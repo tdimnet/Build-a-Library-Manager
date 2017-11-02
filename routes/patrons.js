@@ -18,6 +18,16 @@ var Loan = require('../models').Loan;
   });
 
   // Create new patron post method
+  router.post('/new', function(req, res, next) {
+    Patron
+      .create(req.body)
+      .then(function(patron) {
+        res.redirect('/patrons');
+      })
+      .catch(function(err) {
+        console.log(err);
+      })
+  });
 
 
 // GET ALL PATRONS home page.
