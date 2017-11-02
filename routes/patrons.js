@@ -43,11 +43,12 @@ router.get('/', function(req, res, next) {
 
 // GET PATRON BY ID
 router.get('/details/:id', function(req, res, next) {
-  Patron.findById(req.params.id).then(function(results) {
-    console.log(results);
-    res.render('patron/patron-details', {
-
-    });
+  Patron
+    .findById(req.params.id)
+    .then(function(patron) {
+      res.render('patron/patron-details', {
+        patron: patron
+      });
   })
 });
 
