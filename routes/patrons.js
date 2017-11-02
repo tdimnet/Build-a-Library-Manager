@@ -52,4 +52,18 @@ router.get('/details/:id', function(req, res, next) {
   })
 });
 
+router.post('/details/:id', function(req, res, next) {
+  Patron
+    .findById(req.params.id)
+    .then(function(patron) {
+      return patron.update(req.body)
+    })
+    .then(function(patron) {
+      res.redirect('/patrons')
+    })
+    .catch(function(err) {
+      console.log(err);
+    })
+});
+
 module.exports = router;
