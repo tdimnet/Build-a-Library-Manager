@@ -27,12 +27,14 @@ router.post('/new', function(req, res, next) {
       res.redirect('/books');
     })
     .catch(function(err) {
+      // For now errors are logged in
       console.log(err);
     })
 });
 
 
-/* GET BOOKS home page. */
+// ROUTE FOR BOOKS VIEW
+  // Get all books
 router.get('/', function(req, res, next) {
   Book.findAndCountAll().then(function(results) {
     res.render('book/books', {
@@ -42,9 +44,16 @@ router.get('/', function(req, res, next) {
   })
 });
 
-// ROUTE FOR GET BOOK BY ID
+// ROUTE FOR ONE BOOK
+  // Get book by id
 router.get('/details/:id', function(req, res, next) {
-  res.render('book/book-details')
+  Book
+    .findById(req.params.id)
+    .then(function(book) {
+      res.render('book/book-details', {
+        book: book
+      })
+    })
 });
 
 module.exports = router;
