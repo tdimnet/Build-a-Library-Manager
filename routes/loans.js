@@ -60,4 +60,26 @@ router.get('/new', function(req, res, next) {
   });
 
 
+  // ROUTE FOR GETTING LOANS OVERDUE
+  router.get('/overdue', function(req, res, next) {
+
+    var overdueBooks = {
+      include: [Book, Patron],
+      where: {
+        return_by: { $lt: new Date() },
+        returned_on: null
+      }
+    }
+
+    Loan
+      .findAndCountAll(overdueBooks)
+      .then(function(results) {
+        res.render('loan/loans', {
+          title: 'Loan Overdue',
+          loans: results.rows
+        })
+      })
+  });
+
+
 module.exports = router;
