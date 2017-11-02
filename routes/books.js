@@ -9,12 +9,26 @@ var Loan = require('../models').Loan;
 
 
 // ROUTE FOR NEW BOOK VIEW
+
+  // Create book view
 router.get('/new', function(req, res, next) {
   var book = Book.build();
   res.render('book/new-book', {
     title: 'Create a new book',
     book: book,
   });
+});
+
+  // Create book POST
+router.post('/new', function(req, res, next) {
+  Book
+    .create(req.body)
+    .then(function(book) {
+      res.redirect('/books');
+    })
+    .catch(function(err) {
+      console.log(err);
+    })
 });
 
 
