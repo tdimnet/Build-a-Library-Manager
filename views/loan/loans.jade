@@ -3,6 +3,16 @@ extends ../partials/layout
 block content
   h1= title
   
+  p
+    a.button(href='/loans/new') Create New Loan
+    
+  p= 'Filters: '
+    a(href='/loans') All
+    |   |
+    a(href='/loans/overdue') Overdue
+    |   |
+    a(href='/loans/checked') Checked Out
+  
   table
     thead
       tr
