@@ -76,14 +76,16 @@ router.post('/details/:id', function(req, res, next) {
 // ROUTE FOR OVERDUE LIST
 router.get('/overdue', function(req, res, next) {
 
-  var getBookByLoan = {
+  var overdueBooks = {
     include: [Book, Patron],
-    return_by: { $lt: new Date() },
-    returned_on: null
+    where: {
+      return_by: { $lt: new Date() },
+      returned_on: null
+    }
   }
 
   Loan
-    .findAndCountAll(getBookByLoan)
+    .findAndCountAll(overdueBooks)
     .then(function(results) {
       var books = results.rows.map(function(loan) {
         return loan.Book;
@@ -94,6 +96,31 @@ router.get('/overdue', function(req, res, next) {
         books: books
       });
     })
+});
+
+
+// ROUTE FOR CHECKED OUT LIST
+router.get('/checked', function(req, res, next) {
+  var checkedOutBooks = {
+    include: [Book, Patron],
+    where: {
+      returned_on: null
+    }
+  }
+
+  Loan
+    .findAndCountAll(checkedOutBooks)
+    .then(function(results) {
+      var books = results.rows.map(function(loan) {
+        return loan.Book;
+      });
+
+      res.render('book/books', {
+        title: 'Checked Out Books',
+        books: books
+      })
+    })
+
 });
 
 module.exports = router;
