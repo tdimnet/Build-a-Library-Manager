@@ -2,3 +2,19 @@ extends ../partials/layout
 
 block content
   h1= book.title
+  
+  form(method='POST', action='/books/details/' + book.id)
+    p
+      label(for='title') Book Title:
+      input(id='title' name='title' type='text' value=book.title)
+    p
+      label(for='author') Book Author:
+      input(id='author' name='author' type='text' value=book.author)
+    p
+      label(for='genre') Book Genre:
+      input(id='genre' name='genre' type='text' value=book.genre)
+    p
+      label(for='first_published') First Published:
+      input(id='first_published' name='first_published' type='text' value=book.first_published)
+    p
+      input(type='submit' value='Modify Book')
