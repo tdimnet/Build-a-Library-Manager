@@ -56,4 +56,20 @@ router.get('/details/:id', function(req, res, next) {
     })
 });
 
+  // Modify a specific book
+router.post('/details/:id', function(req, res, next) {
+  Book
+    .findById(req.params.id)
+    .then(function(book) {
+      return book.update(req.body)
+    })
+    .then(function(book) {
+      res.redirect('/books');
+    })
+    .catch(function(err) {
+      // For now errors are logged in here too
+      console.log(err);
+    })
+})
+
 module.exports = router;
