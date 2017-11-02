@@ -1,4 +1,25 @@
 extends ../partials/layout
 
 block content
-  h1 Foo
+  h1= title
+  
+  if erros
+    ul
+      each error in errors
+        li= error
+        
+  form(method='POST', action='/books/new')
+    p
+      label(for='title') Title:
+      input(id='title', name='title' type='text')
+    p
+      label(for='author') Author:
+      input(id='author', name='author' type='text')
+    p
+      label(for='genre') Genre:
+      input(id='genre', name='genre' type='text')
+    p
+      label(for='first_published') First Published:
+      input(id='first_published', name='first_published' type='text')
+    p
+      input(type='submit' value='Create book')
