@@ -1,4 +1,12 @@
 extends ../partials/layout
 
 block content
-  h1 Foo
+  h1= title
+  
+  form(method='POST', action='/loans/new')
+    p
+      label(for='book_id') Book
+      select(id='book_id' name='book_id')
+        each book in books
+          option(value= book.id selected= (book.id == loan.book_id))= book.title
+    
