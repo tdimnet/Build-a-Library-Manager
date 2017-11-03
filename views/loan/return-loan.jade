@@ -1,4 +1,16 @@
 extends ../partials/layout
 
 block content
-  h1 Return a loan
+  h1= title
+  
+  p Book Title: 
+    strong= loan.Book.title
+
+  p Loaned By:
+    strong= loan.Patron.name
+    
+  p Loaned On:
+    strong= loan.loaned_on
+    
+  p Return By:
+    strong= loan.return_by
