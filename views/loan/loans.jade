@@ -36,7 +36,10 @@ block content
             if loan.returned_on !== null
               td= loan.returned_on
             else
-              td Not returned yet
+              td
+            td
+              unless loan.returned_on
+                a.button(href='/loans/return/' + loan.id) Return Book
       else
         tr
           td No records found.

@@ -82,7 +82,7 @@ router.get('/new', function(req, res, next) {
   });
 
   // ROUTE FOR GETTINT CHECKED OUT LOANS
-  router.get('checked', function(req, res, next) {
+  router.get('/checked', function(req, res, next) {
     var checkedOutBooks = {
       include: [Book, Patron],
       where: {
