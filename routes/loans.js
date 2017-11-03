@@ -101,4 +101,24 @@ router.get('/new', function(req, res, next) {
   });
 
 
+  // ROUTE FOR RETURNING BOOK
+  router.get('/return/:id', function(req, res, next) {
+    var returnBook = {
+      include: [Book, Patron],
+      where: {
+        id: req.params.id
+      }
+    };
+
+    Loan
+      .findOne(returnBook)
+      .then(function(loan) {
+        res.render('loan/return-loan', {
+          title: 'Return a Loan',
+          loan: loan
+        })
+      })
+  });
+
+
 module.exports = router;
