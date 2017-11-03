@@ -102,6 +102,7 @@ router.get('/new', function(req, res, next) {
 
 
   // ROUTE FOR RETURNING BOOK
+    // GET METHOD FOR VIEWING LOAN
   router.get('/return/:id', function(req, res, next) {
     var returnBook = {
       include: [Book, Patron],
@@ -117,6 +118,21 @@ router.get('/new', function(req, res, next) {
           title: 'Return a Loan',
           loan: loan
         })
+      })
+  });
+
+    // POST METHOD FOR UPDATING LOAN
+  router.post('/return/:id', function(req, res, next) {
+    Loan
+      .findById(req.params.id)
+      .then(function(loan) {
+        return loan.update(req.body)
+      })
+      .then(function() {
+        res.redirect('/loans')
+      })
+      .catch(function(err) {
+        console.log(err);
       })
   });
 
