@@ -3,6 +3,11 @@ extends ../partials/layout
 block content
   h1= title
   
+  if errors
+    ul
+      each error in errors
+        li= error.message
+  
   form(method='POST', action='/patrons/new')
     p
       label(for='first_name') First Name:

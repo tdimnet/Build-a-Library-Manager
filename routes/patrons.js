@@ -8,26 +8,36 @@ var Loan = require('../models').Loan;
 
 // ROUTE FOR CREATING NEW PATRON
 
-  // Create new patron get method
-  router.get('/new', function(req, res, next) {
-    var patron = Patron.build();
-    res.render('patron/new-patron', {
+function renderNewPatron(res, patron, err) {
+  res.render('patron/new-patron', {
+      patron: patron,
+      errors: err ? err.errors : [],
       title: 'Create new patron',
-      patron: patron
-    });
-  });
+    }
+  )
+}
 
-  // Create new patron post method
-  router.post('/new', function(req, res, next) {
-    Patron
-      .create(req.body)
-      .then(function(patron) {
-        res.redirect('/patrons');
-      })
-      .catch(function(err) {
-        console.log(err);
-      })
-  });
+// Create new patron get method
+router.get('/new', function(req, res, next) {
+  var patron = Patron.build();
+  renderNewPatron(res, patron);
+});
+
+// Create new patron post method
+router.post('/new', function(req, res, next) {
+  Patron
+    .create(req.body)
+    .then(function(patron) {
+      res.redirect('/patrons');
+    })
+    .catch(function(err) {
+      if (err.name === 'SequelizeValidationError') {
+        let patron = Patron.build(req.body);
+        renderNewPatron(res, patron, err);
+      }
+      else res.send(500);
+    })
+});
 
 
 // GET ALL PATRONS home page.
