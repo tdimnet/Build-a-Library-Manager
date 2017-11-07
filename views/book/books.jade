@@ -3,6 +3,16 @@ extends ../partials/layout
 block content
   h1= title
   
+  p
+    a.button(href='/books/new') Create New Book
+    
+  p Filters:  
+    a(href='/books') All
+    |     | 
+    a(href='/books/overdue') Overdue
+    |     | 
+    a(href='/books/checked') Checkout Out
+  
   table
     thead
       tr
