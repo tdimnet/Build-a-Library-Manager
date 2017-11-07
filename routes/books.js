@@ -11,7 +11,7 @@ var Loan = require('../models').Loan;
 // ROUTE FOR NEW BOOK VIEW
 
 function renderNewBook(res, book, err) {
-  res.render('book_new', {
+  res.render('book/new-book', {
       title: 'Create a new book',
       book: book,
       errors: err ? err.errors : [],
@@ -33,11 +33,12 @@ router.post('/new', function(req, res, next) {
       res.redirect('/books');
     })
     .catch(function(err) {
-      if (err.name === 'SequelizeValidationError') {
-          let book = Book.build(req.body);
-          renderNewBook(res, book, err);
-        }
-        else res.send(500);
+      if (err.name === 'SequelizeValidationError')
+      {
+        let book = Book.build(req.body);
+        renderNewBook(res, book, err);
+      }
+      else res.send(500);
     })
 });
 
