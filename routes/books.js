@@ -56,14 +56,34 @@ router.get('/', function(req, res, next) {
 });
 
 // ROUTE FOR ONE BOOK
+
+function renderUpdateBookDetails(res, book, err) {
+
+  let loanQuery = {
+    include: [Book, Patron],
+    where: {
+      book_id: book.id // all loans for book id
+    }
+  }
+
+  Loan.findAll(loanQuery)
+      .then((loans) => {
+        res.render('book/book-details', {
+            book: book,
+            loans: loans,
+            errors: err ? err.errors : [],
+          }
+        );
+      });
+}
+
+
   // Get book by id
 router.get('/details/:id', function(req, res, next) {
   Book
     .findById(req.params.id)
     .then(function(book) {
-      res.render('book/book-details', {
-        book: book
-      })
+      renderUpdateBookDetails(res, book);
     })
 });
 
@@ -78,8 +98,11 @@ router.post('/details/:id', function(req, res, next) {
       res.redirect('/books');
     })
     .catch(function(err) {
-      // For now errors are logged in here too
-      console.log(err);
+      if (err.name === 'SequelizeValidationError') {
+        let book = Book.build(req.body);
+        renderUpdateBookDetails(res, book, err);
+      }
+      else res.send(500);
     })
 });
 
