@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var moment  = require('moment');
 
 var Book = require('../models').Book;
 var Patron = require('../models').Patron;
@@ -25,10 +26,9 @@ router.get('/', function(req, res, next) {
 // ROUTE FOR NEW LOAN
   // GET
 router.get('/new', function(req, res, next) {
-
   var loan = Loan.build({
-    loaned_on: '2018-10-10',
-    return_by: '2019-10-20'
+    loaned_on: moment().format('YYYY-MM-DD'),
+    return_by: moment().add(7, 'days').format('YYYY-MM-DD')
   });
 
   Book
@@ -114,6 +114,9 @@ router.get('/new', function(req, res, next) {
     Loan
       .findOne(returnBook)
       .then(function(loan) {
+        loan.returned_on = req.body && req.body.returned_on
+                         ? req.body.returned_on
+                         : moment().format('YYYY-MM-DD');
         res.render('loan/return-loan', {
           title: 'Return a Loan',
           loan: loan
@@ -126,6 +129,9 @@ router.get('/new', function(req, res, next) {
     Loan
       .findById(req.params.id)
       .then(function(loan) {
+        loan.returned_on = req.body && req.body.returned_on
+                         ? req.body.returned_on
+                         : moment().format('YYYY-MM-DD');
         return loan.update(req.body)
       })
       .then(function() {
