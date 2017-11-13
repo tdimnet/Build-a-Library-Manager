@@ -24,3 +24,28 @@ block content
       input(id='zip_code' name='zip_code' input='text' value=patron.zip_code)
     p
       input(type='submit' value='Create Patron')
+
+  h2 Loan History
+  table
+    thead
+      tr
+        th Book
+        th Patron
+        th Loaned on
+        th Return by
+        th Returned on
+        th Action
+    tbody
+      each loan in loans
+        tr
+          td
+            a(href= '/books/details/' + loan.Book.id)= loan.Book.title
+          td
+            a(href= '/patrons/details/' + loan.Patron.id)= loan.Patron.first_name + ' ' + loan.Patron.last_name
+          td= loan.loaned_on
+          td= loan.return_by
+          td= loan.returned_on
+          td
+            unless loan.returned_on
+              a(href= '/loans/return/' + loan.id class= 'button') Return Book
+    

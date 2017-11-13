@@ -17,6 +17,30 @@ function renderNewPatron(res, patron, err) {
   )
 }
 
+
+function renderUpdatePatronDetails(res, patron, err) {
+  let loanQuery = {
+    include: [Book, Patron],
+    where: {
+      patron_id: patron.id // all loans for patron id
+    }
+  };
+
+  Loan
+    .findAll(loanQuery)
+    .then(function(loans) {
+        res.render('patron/patron-details', {
+            patron: patron,
+            loans: loans,
+            errors: err ? err.errors : [],
+          }
+        );
+      }
+    );
+}
+
+
+
 // Create new patron get method
 router.get('/new', function(req, res, next) {
   var patron = Patron.build();
@@ -56,10 +80,8 @@ router.get('/details/:id', function(req, res, next) {
   Patron
     .findById(req.params.id)
     .then(function(patron) {
-      res.render('patron/patron-details', {
-        patron: patron
-      });
-  })
+      renderUpdatePatronDetails(res, patron);
+    })
 });
 
 router.post('/details/:id', function(req, res, next) {
