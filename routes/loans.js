@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-// var moment  = require('moment');
+var moment  = require('moment');
 
 var Book = require('../models').Book;
 var Patron = require('../models').Patron;
@@ -28,8 +28,8 @@ router.get('/', function(req, res, next) {
   // GET
 router.get('/new', function(req, res, next) {
   var loan = Loan.build({
-    // loaned_on: moment().format('YYYY-MM-DD'),
-    // return_by: moment().add(7, 'days').format('YYYY-MM-DD')
+    loaned_on: new Date(),
+    return_by: moment().add(7, 'days').format('YYYY-MM-DD')
   });
 
   Book
