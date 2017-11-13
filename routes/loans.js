@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
 router.get('/new', function(req, res, next) {
   var loan = Loan.build({
     loaned_on: new Date(),
-    return_by: moment().add(7, 'days').format('YYYY-MM-DD')
+    return_by: moment().add(7, 'days')
   });
 
   Book
@@ -115,9 +115,9 @@ router.get('/new', function(req, res, next) {
     Loan
       .findOne(returnBook)
       .then(function(loan) {
-        // loan.returned_on = req.body && req.body.returned_on
-        //                  ? req.body.returned_on
-        //                  : moment().format('YYYY-MM-DD');
+        loan.returned_on = req.body && req.body.returned_on
+                         ? req.body.returned_on
+                         : moment();
         res.render('loan/return-loan', {
           title: 'Return a Loan',
           loan: loan
@@ -130,9 +130,9 @@ router.get('/new', function(req, res, next) {
     Loan
       .findById(req.params.id)
       .then(function(loan) {
-        // loan.returned_on = req.body && req.body.returned_on
-        //                  ? req.body.returned_on
-        //                  : moment().format('YYYY-MM-DD');
+        loan.returned_on = req.body && req.body.returned_on
+                         ? req.body.returned_on
+                         : moment();
         return loan.update(req.body)
       })
       .then(function() {
