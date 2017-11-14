@@ -34,7 +34,7 @@ block content
             td= loan.loaned_on
             td= loan.return_by
             if loan.returned_on !== null
-              td= loan.returned_on
+              td= moment(loan.returned_on).format('YYYY-MM-DD')
             else
               td
             td
